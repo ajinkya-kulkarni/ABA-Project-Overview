@@ -361,7 +361,7 @@ def make_log_file():
 	Raises:
 		Exception: If an error occurs during the deletion process.
 	"""
-	
+
 	# Create an S3 resource object using endpoint URL and access keys
 	s3 = boto3.resource('s3',endpoint_url=AMAZON_S3_ENDPOINT_URL, aws_access_key_id=AMAZON_S3_ACCESS_KEY, aws_secret_access_key=AMAZON_S3_SECRET_KEY)
 
@@ -377,7 +377,6 @@ def make_log_file():
 	total_files = len(objects)
 
 	print(str(total_files) + " files/entries retreived successfully")
-	print()
 
 	##################
 
