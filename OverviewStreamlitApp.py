@@ -14,8 +14,6 @@ import datetime
 
 # from PASSWORDS import *
 
-from GenerateLogs import *
-
 #######################################################################
 
 def create_dataframe(json_file):
@@ -63,6 +61,8 @@ generate_df = st.button("Click here to generate the latest reports")
 #######################################################################
 
 if generate_df:
+
+	from GenerateLogs import *
 
 	st.markdown("""---""")
 
