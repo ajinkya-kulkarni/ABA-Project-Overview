@@ -12,10 +12,10 @@ import datetime
 
 #######################################################################
 
-LINKAHEAD_URL=st.secrets.db_credentials.LINKAHEAD_URL,
-LINKAHEAD_USERNAME=st.secrets.db_credentials.LINKAHEAD_USERNAME,
-LINKAHEAD_PASSWORD=st.secrets.db_credentials.LINKAHEAD_PASSWORD,
-UMG_PROXY=st.secrets.db_credentials.UMG_PROXY
+LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
+LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
+LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
+UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
 
 # from PASSWORDS import *
 
