@@ -21,7 +21,7 @@ import datetime
 
 ##############################################
 
-from PASSWORDS import *
+# from PASSWORDS import *
 
 ##############################################
 
