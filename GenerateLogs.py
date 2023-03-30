@@ -19,9 +19,6 @@ urllib3.disable_warnings()
 
 import datetime
 
-from tqdm import tqdm
-import time
-
 ##############################################
 
 from PASSWORDS import *
@@ -217,7 +214,7 @@ def make_json_file(json_file):
 
 		# create a dictionary to store the properties
 		single_entry_data = {
-			"#": current_index,
+			"Entry #": current_index,
 			"Scan Type": which_type_of_scan,
 			"Sample ID": SampleID,
 			"Sample Name / Barcode": SampleName,
@@ -226,14 +223,14 @@ def make_json_file(json_file):
 			"Uploader Family Name": FamilyName,
 			"Uploader Email Address": EmailAddress,
 			"Upload Date [YYYY-MM-DD]": Date,
-			"Resolution in XY Plane [&mu;m])": DeltaPixelXY,
-			"Resolution in Z direction [&mu;m]": DeltaPixelZ,
+			"Resolution in XY Plane [mu m]": DeltaPixelXY,
+			"Resolution in Z direction [mu m]": DeltaPixelZ,
 			"Number of Channels": NumberOfChannels,
 			"Wavelengths": str_wavelengths,
 			"Illumination Right": IlluminationRight,
 			"Illumination Left": IlluminationLeft,
 			"Aperture [%]": Apertures,
-			"Exposure Times [&mu;s]": ExposureTimes,
+			"Exposure Times [mu s]": ExposureTimes,
 			"Objective": Objective,
 			"Zoom": Zoom,
 			"Sheet Width [%]": SheetWidth,
@@ -251,8 +248,6 @@ def make_json_file(json_file):
 	# create the JSON file
 	with open(json_file, 'w') as outfile:
 		json.dump(global_entries, outfile)
-
-	print(f"{json_file} file successfully created!")
 
 ############################################################################################################
 
@@ -280,8 +275,6 @@ def convert_json_to_csv(json_file, csv_file):
 		writer = csv.DictWriter(f, fieldnames=header)
 		writer.writeheader()
 		writer.writerows(data)
-
-	print(f"CSV file '{csv_file}' exported successfully!")
 
 ############################################################################################################
 
@@ -344,8 +337,6 @@ def convert_json_to_html(json_file, html_file):
 	with open(html_file, 'w') as f:
 		f.write(html)
 
-	print(f"HTML file '{html_file}' exported successfully!")
-
 ############################################################################################################
 
 def make_log_file():
@@ -375,8 +366,6 @@ def make_log_file():
 
 	# Get total number of files in the bucket
 	total_files = len(objects)
-
-	print(str(total_files) + " files/entries retreived successfully")
 
 	##################
 
@@ -420,27 +409,4 @@ def make_log_file():
 				# If an error occurs, raise an exception
 				raise Exception('Something went wrong')
 
-	print(filename + ' written successfully.')
-
-############################################################################################################
-
-if __name__ == '__main__':
-
-	os.system('clear || cls')
-
-	tasks = [
-		{"function": make_json_file, "args": ['LSM_overview.json']},
-		{"function": convert_json_to_html, "args": ['LSM_overview.json', 'LSM_overview.html']},
-		{"function": convert_json_to_csv, "args": ['LSM_overview.json', 'LSM_overview.csv']},
-		{"function": make_log_file, "args": []}
-	]
-
-	for task in tqdm(tasks, desc="Processing"):
-		function = task["function"]
-		args = task["args"]
-		function(*args)
-		time.sleep(1)  # Simulating additional processing time
-
-	print()
-	
 ############################################################################################################
