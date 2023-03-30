@@ -12,12 +12,18 @@ import datetime
 
 #######################################################################
 
+## Uncomment to activate streamlit version
+
 LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
 LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
 LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
 UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
 
+## Uncomment to activate the local version
+
 # from PASSWORDS import *
+
+#######################################################################
 
 from GenerateLogs import *
 
@@ -32,6 +38,15 @@ def download_csv(df, filename):
 	href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download report</a>'
 	
 	return href
+
+
+def download_excel(df, filename):
+    excel = df.to_excel(index=False)
+    b64 = base64.b64encode(excel).decode()
+
+    href = f'<a href="data:application/vnd.ms-excel;base64,{b64}" download="{filename}.xlsx">Download report</a>'
+    
+    return href
 
 #######################################################################
 
@@ -122,7 +137,9 @@ if generate_df:
 
 			st.dataframe(data=df, height = 500, use_container_width = True)
 			
-			st.markdown(download_csv(df, 'LSM_overview'), unsafe_allow_html = True)
+			# st.markdown(download_csv(df, 'LSM_overview'), unsafe_allow_html = True)
+
+			st.markdown(download_excel(df, 'LSM_overview'), unsafe_allow_html = True)
 
 		with tab2:
 			st.empty()
