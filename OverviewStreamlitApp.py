@@ -14,14 +14,14 @@ import datetime
 
 ## Uncomment to activate streamlit version
 
-# LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
-# LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
-# LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
-# UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
+LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
+LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
+LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
+UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
 
 ## Uncomment to activate the local version
 
-from PASSWORDS import *
+# from PASSWORDS import *
 
 #######################################################################
 
