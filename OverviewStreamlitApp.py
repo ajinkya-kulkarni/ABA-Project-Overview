@@ -12,12 +12,12 @@ import datetime
 
 #######################################################################
 
-LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
-LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
-LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
-UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
+# LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
+# LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
+# LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
+# UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
 
-# from PASSWORDS import *
+from PASSWORDS import *
 
 from GenerateLogs import *
 
@@ -104,29 +104,31 @@ if generate_df:
 
 				st.stop()
 
-	#######################################################################
-
-	tab1, tab2, tab3 = st.tabs(["Light sheet Microscopy Data", "Two Photon Microscopy Data", "CT Scan Data"])
-
-	#######################################################################
-
-	# Create dataframes for each tab
-
-	with tab1:
+		#######################################################################
 
 		LSM_overview = make_json_file()
 
-		df = pd.DataFrame(LSM_overview)
+		#######################################################################
 
-		st.dataframe(data=df, height = 500, use_container_width = True)
-		
-		st.markdown(download_csv(df, 'LSM_overview'), unsafe_allow_html = True)
+		tab1, tab2, tab3 = st.tabs(["Light sheet Microscopy Data", "Two Photon Microscopy Data", "CT Scan Data"])
 
-	with tab2:
-		st.empty()
+		#######################################################################
 
-	with tab3:
-		st.empty()
+		# Create dataframes for each tab
+
+		with tab1:
+
+			df = pd.DataFrame(LSM_overview)
+
+			st.dataframe(data=df, height = 500, use_container_width = True)
+			
+			st.markdown(download_csv(df, 'LSM_overview'), unsafe_allow_html = True)
+
+		with tab2:
+			st.empty()
+
+		with tab3:
+			st.empty()
 	
 	#######################################################################
 
