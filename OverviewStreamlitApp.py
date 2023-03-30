@@ -14,14 +14,14 @@ import datetime
 
 ## Uncomment to activate streamlit version
 
-LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
-LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
-LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
-UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
+# LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
+# LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
+# LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
+# UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
 
 ## Uncomment to activate the local version
 
-# from PASSWORDS import *
+from PASSWORDS import *
 
 #######################################################################
 
@@ -70,13 +70,19 @@ st.markdown("")
 
 #######################################################################
 
-# Create a button to generate the DataFrame
- 
+# # Create a button to generate the DataFrame
+
 generate_df = st.button("Click here to generate the latest reports")
+
+# with st.form(key = 'form1', clear_on_submit = True):
+
+# 	submitted = st.form_submit_button('Click here to generate the latest reports')
 
 #######################################################################
 
 if generate_df:
+
+# if submitted:
 
 	st.markdown("""---""")
 
