@@ -14,13 +14,7 @@ import datetime
 
 # from PASSWORDS import *
 
-#######################################################################
-
-def create_dataframe(json_file):
-	with open(json_file) as f:
-		data = json.load(f)
-	df = pd.DataFrame.from_dict(data)
-	return df
+from GenerateLogs import *
 
 #######################################################################
 
@@ -62,15 +56,48 @@ generate_df = st.button("Click here to generate the latest reports")
 
 if generate_df:
 
-	from GenerateLogs import *
-
 	st.markdown("""---""")
 
 	#######################################################################
 
 	with st.spinner(text = "Generating latest reports..."):
-	
-		make_json_file('LSM_overview.json')
+
+		#######################################################################
+
+		# Attempt to connect to the Linkahead database without using a proxy server
+		try:
+			db.configure_connection(
+				url = LINKAHEAD_URL,
+				password_method = "plain",
+				ssl_insecure = True, # remove after naming server
+				username = LINKAHEAD_USERNAME,
+				password = LINKAHEAD_PASSWORD,
+				timeout = 1000
+			)
+
+			print()
+
+		# If connection fails, try again using a proxy server
+
+		except:
+			try:
+				db.configure_connection(
+					url = LINKAHEAD_URL,
+					password_method = "plain",
+					ssl_insecure = True, # remove after naming server
+					username = LINKAHEAD_USERNAME,
+					password = LINKAHEAD_PASSWORD,
+					https_proxy = UMG_PROXY,
+					timeout = 1000
+				)
+
+				print()
+
+			# If connection still fails, raise an exception
+			except:
+				raise Exception('Unsuccessful connection with the Linkahead DB. Contact the admin(s) for help.')
+
+				st.stop()
 
 	#######################################################################
 
@@ -78,12 +105,16 @@ if generate_df:
 
 	#######################################################################
 
-	df = create_dataframe("LSM_overview.json")
-
 	# Create dataframes for each tab
 
 	with tab1:
+
+		LSM_overview = make_json_file()
+
+		df = pd.DataFrame(LSM_overview)
+
 		st.dataframe(data=df, height = 500, use_container_width = True)
+		
 		st.markdown(download_csv(df, 'LSM_overview'), unsafe_allow_html = True)
 
 	with tab2:
