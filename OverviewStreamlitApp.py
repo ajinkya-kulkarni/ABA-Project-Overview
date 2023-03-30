@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import base64
 import json
 from io import BytesIO
 
@@ -23,32 +22,7 @@ UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
 
 # from PASSWORDS import *
 
-#######################################################################
-
 from GenerateLogs import *
-
-#######################################################################
-
-# Define function to download dataframe as CSV
-
-def download_csv(df, filename):
-	csv = df.to_csv(index=False)
-	b64 = base64.b64encode(csv.encode()).decode()
-
-	href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download report</a>'
-	
-	return href
-
-
-def download_excel(df, filename):
-	excel_io = BytesIO()
-	writer = pd.ExcelWriter(excel_io, engine='openpyxl')
-	df.to_excel(writer, sheet_name='Sheet1', index=False)
-	writer.close()
-	excel_io.seek(0)
-	b64 = base64.b64encode(excel_io.getvalue()).decode()
-	href = f'<a href="data:application/vnd.ms-excel;base64,{b64}" download="{filename}.xlsx">Download report</a>'
-	return href
 
 #######################################################################
 
@@ -154,15 +128,16 @@ if generate_df:
 
 		with tab3:
 			st.empty()
-	
+
 	#######################################################################
 
 	# Show timestamp of data creation
 
+	st.markdown("")
+
 	timestamp = datetime.datetime.now().strftime('%d %B %Y at %H:%M hrs')
-	created_on = f"Created on {timestamp}"
-	st.markdown("""---""")
-	st.write(created_on)
+	created_on = f"Report generated on {timestamp}"
+	st.caption(created_on)
 
 else:
 
