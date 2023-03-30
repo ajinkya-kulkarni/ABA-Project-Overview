@@ -41,12 +41,14 @@ def download_csv(df, filename):
 
 
 def download_excel(df, filename):
-    excel = df.to_excel(index=False)
-    b64 = base64.b64encode(excel).decode()
-
-    href = f'<a href="data:application/vnd.ms-excel;base64,{b64}" download="{filename}.xlsx">Download report</a>'
-    
-    return href
+	excel_io = BytesIO()
+	writer = pd.ExcelWriter(excel_io, engine='xlsxwriter')
+	df.to_excel(writer, sheet_name='Sheet1', index=False)
+	writer.save()
+	excel_io.seek(0)
+	b64 = base64.b64encode(excel_io.read()).decode()
+	href = f'<a href="data:application/vnd.ms-excel;base64,{b64}" download="{filename}.xlsx">Download report</a>'
+	return href
 
 #######################################################################
 
