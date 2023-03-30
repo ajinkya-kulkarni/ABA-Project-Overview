@@ -71,7 +71,7 @@ st.markdown("")
 #######################################################################
 
 # Create a button to generate the DataFrame
-
+ 
 generate_df = st.button("Click here to generate the latest reports")
 
 #######################################################################
