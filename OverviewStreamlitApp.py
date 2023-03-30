@@ -14,14 +14,14 @@ import datetime
 
 ## Uncomment to activate streamlit version
 
-LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
-LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
-LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
-UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
+# LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
+# LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
+# LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
+# UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
 
 ## Uncomment to activate the local version
 
-# from PASSWORDS import *
+from PASSWORDS import *
 
 #######################################################################
 
@@ -42,11 +42,11 @@ def download_csv(df, filename):
 
 def download_excel(df, filename):
 	excel_io = BytesIO()
-	writer = pd.ExcelWriter(excel_io, engine='xlsxwriter')
+	writer = pd.ExcelWriter(excel_io, engine='openpyxl')
 	df.to_excel(writer, sheet_name='Sheet1', index=False)
-	writer.save()
+	writer.close()
 	excel_io.seek(0)
-	b64 = base64.b64encode(excel_io.read()).decode()
+	b64 = base64.b64encode(excel_io.getvalue()).decode()
 	href = f'<a href="data:application/vnd.ms-excel;base64,{b64}" download="{filename}.xlsx">Download report</a>'
 	return href
 
