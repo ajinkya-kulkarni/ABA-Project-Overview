@@ -278,3 +278,27 @@ def make_log_file():
 				raise Exception('Something went wrong')
 
 ############################################################################################################
+
+import random
+import string
+
+def create_random_json(num_rows = 50, num_cols = 30, string_length = 10):
+	column_names = ['column{}'.format(i) for i in range(1, num_cols + 1)]
+
+	# create a list to hold the data
+	data = []
+
+	# create random data for each row and column
+	for i in range(num_rows):
+		row = {}
+
+		for col_name in column_names:
+			row[col_name] = ''.join(random.choices(string.ascii_lowercase + string.digits, k = string_length))
+
+		# append the row to the data list
+		data.append(row)
+
+	# return JSON data
+	return data
+
+############################################################################################################
