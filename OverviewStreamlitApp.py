@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import base64
 import json
 from io import BytesIO
 
@@ -8,7 +7,7 @@ import sys
 sys.dont_write_bytecode = True # Don't generate the __pycache__ folder locally
 sys.tracebacklimit = 0 # Print exception without the buit-in python warning
 
-import datetime, time
+import datetime
 
 #######################################################################
 
@@ -23,32 +22,7 @@ UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
 
 # from PASSWORDS import *
 
-#######################################################################
-
 from GenerateLogs import *
-
-#######################################################################
-
-# Define function to download dataframe as CSV
-
-def download_csv(df, filename):
-	csv = df.to_csv(index=False)
-	b64 = base64.b64encode(csv.encode()).decode()
-
-	href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download report</a>'
-	
-	return href
-
-
-def download_excel(df, filename):
-	excel_io = BytesIO()
-	writer = pd.ExcelWriter(excel_io, engine='openpyxl')
-	df.to_excel(writer, sheet_name='Sheet1', index=False)
-	writer.close()
-	excel_io.seek(0)
-	b64 = base64.b64encode(excel_io.getvalue()).decode()
-	href = f'<a href="data:application/vnd.ms-excel;base64,{b64}" download="{filename}.xlsx">Download report</a>'
-	return href
 
 #######################################################################
 
@@ -100,7 +74,8 @@ if generate_df:
 				ssl_insecure = True, # remove after naming server
 				username = LINKAHEAD_USERNAME,
 				password = LINKAHEAD_PASSWORD,
-				timeout = 1000)
+				timeout = 1000
+			)
 
 			print()
 
@@ -115,7 +90,8 @@ if generate_df:
 					username = LINKAHEAD_USERNAME,
 					password = LINKAHEAD_PASSWORD,
 					https_proxy = UMG_PROXY,
-					timeout = 1000)
+					timeout = 1000
+				)
 
 				print()
 
@@ -129,10 +105,6 @@ if generate_df:
 
 		LSM_overview = make_json_file()
 
-		TwoPhoton_overview = create_random_json()
-
-		CT_overview = create_random_json()
-
 		#######################################################################
 
 		tab1, tab2, tab3 = st.tabs(["Light sheet Microscopy Data", "Two Photon Microscopy Data", "CT Scan Data"])
@@ -145,40 +117,27 @@ if generate_df:
 
 			df = pd.DataFrame(LSM_overview)
 
-			st.dataframe(data=df, use_container_width = True)
+			st.dataframe(data=df, height = 500, use_container_width = True)
 			
 			# st.markdown(download_csv(df, 'LSM_overview'), unsafe_allow_html = True)
 
 			st.markdown(download_excel(df, 'LSM_overview'), unsafe_allow_html = True)
 
 		with tab2:
-			df = pd.DataFrame(TwoPhoton_overview)
-
-			st.dataframe(data=df, use_container_width = True)
-			
-			# st.markdown(download_csv(df, 'TwoPhoton_overview'), unsafe_allow_html = True)
-
-			st.markdown(download_excel(df, 'TwoPhoton_overview'), unsafe_allow_html = True)
+			st.empty()
 
 		with tab3:
-			df = pd.DataFrame(CT_overview)
+			st.empty()
 
-			st.dataframe(data=df, use_container_width = True)
-			
-			# st.markdown(download_csv(df, 'CT_overview'), unsafe_allow_html = True)
-
-			st.markdown(download_excel(df, 'CT_overview'), unsafe_allow_html = True)
-	
 	#######################################################################
 
 	# Show timestamp of data creation
 
-	timestamp = time.time()
-	local_time = datetime.datetime.fromtimestamp(timestamp)
-	local_tz = datetime.datetime.now().astimezone().tzinfo
-	timestamp_str = local_time.strftime('%d %B %Y at %H:%M hrs')
-	created_on = f"Report generated on {timestamp_str}"
-	st.caption(created_on, unsafe_allow_html=False)
+	st.markdown("")
+
+	timestamp = datetime.datetime.now().strftime('%d %B %Y at %H:%M hrs')
+	created_on = f"Report generated on {timestamp}"
+	st.caption(created_on)
 
 else:
 
