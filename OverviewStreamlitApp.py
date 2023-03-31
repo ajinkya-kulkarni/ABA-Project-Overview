@@ -8,7 +8,7 @@ import sys
 sys.dont_write_bytecode = True # Don't generate the __pycache__ folder locally
 sys.tracebacklimit = 0 # Print exception without the buit-in python warning
 
-import datetime, time
+import datetime
 
 #######################################################################
 
@@ -173,10 +173,11 @@ if generate_df:
 
 	# Show timestamp of data creation
 
-	timestamp = time.time()
-	local_time = datetime.datetime.fromtimestamp(timestamp)
-	local_tz = datetime.datetime.now().astimezone().tzinfo
-	timestamp_str = local_time.strftime('%d %B %Y at %H:%M hrs')
+	# Get the current UTC time
+	local_time = datetime.datetime.utcnow()
+	# Format the timestamp string
+	timestamp_str = local_time.strftime('%d %B %Y at %H:%M hrs UTC')
+	# Create the report generated time string with the UTC timezone
 	created_on = f"Report generated on {timestamp_str}"
 	st.caption(created_on, unsafe_allow_html=False)
 
