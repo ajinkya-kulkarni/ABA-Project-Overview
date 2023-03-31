@@ -171,15 +171,15 @@ if generate_df:
 	
 	#######################################################################
 
-	# Show timestamp of data creation
+		# Show timestamp of data creation
 
-	# Get the current UTC time
-	local_time = datetime.datetime.utcnow()
-	# Format the timestamp string
-	timestamp_str = local_time.strftime('%d %B %Y at %H:%M hrs UTC')
-	# Create the report generated time string with the UTC timezone
-	created_on = f"Report generated on {timestamp_str}"
-	st.caption(created_on, unsafe_allow_html=False)
+		# Get the current UTC time
+		local_time = datetime.datetime.utcnow()
+		# Format the timestamp string
+		timestamp_str = local_time.strftime('%d %B %Y at %H:%M hrs UTC')
+		# Create the report generated time string with the UTC timezone
+		created_on = f"Report generated on {timestamp_str}"
+		st.caption(created_on, unsafe_allow_html=False)
 
 else:
 
