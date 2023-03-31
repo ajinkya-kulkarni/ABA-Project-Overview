@@ -3,9 +3,6 @@ import numpy as np
 import os
 import json
 import csv
-import base64
-from io import BytesIO
-import pandas as pd
 
 import boto3
 
@@ -282,29 +279,26 @@ def make_log_file():
 
 ############################################################################################################
 
-# Define function to download dataframe as CSV
+import random
+import string
 
-def download_csv(df, filename):
-	csv = df.to_csv(index=False)
-	b64 = base64.b64encode(csv.encode()).decode()
+def create_random_json(num_rows = 50, num_cols = 30, string_length = 10):
+	column_names = ['column{}'.format(i) for i in range(1, num_cols + 1)]
 
-	href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download report</a>'
-	
-	return href
+	# create a list to hold the data
+	data = []
 
-############################################################################################################
+	# create random data for each row and column
+	for i in range(num_rows):
+		row = {}
 
-# Define function to download dataframe as CSV
+		for col_name in column_names:
+			row[col_name] = ''.join(random.choices(string.ascii_lowercase + string.digits, k = string_length))
 
-def download_excel(df, filename):
-	excel_io = BytesIO()
-	writer = pd.ExcelWriter(excel_io, engine='openpyxl')
-	df.to_excel(writer, sheet_name='Sheet1', index=False)
-	writer.close()
-	excel_io.seek(0)
-	b64 = base64.b64encode(excel_io.getvalue()).decode()
-	href = f'<a href="data:application/vnd.ms-excel;base64,{b64}" download="{filename}.xlsx">Download report</a>'
-	return href
+		# append the row to the data list
+		data.append(row)
+
+	# return JSON data
+	return data
 
 ############################################################################################################
-
