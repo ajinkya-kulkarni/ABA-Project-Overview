@@ -29,7 +29,7 @@ from GenerateLogs import *
 
 #######################################################################
 
-# Define function to download dataframe as CSV
+# Define function to download dataframe as a CSV file
 
 def download_csv(df, filename):
 	csv = df.to_csv(index=False)
@@ -39,6 +39,7 @@ def download_csv(df, filename):
 	
 	return href
 
+# Define function to download dataframe as an Excel file
 
 def download_excel(df, filename):
 	excel_io = BytesIO()
