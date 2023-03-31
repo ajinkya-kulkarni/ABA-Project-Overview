@@ -56,10 +56,9 @@ def download_excel(df, filename):
 
 with open("logo.jpg", "rb") as f:
 	image_data = f.read()
-
 image_bytes = BytesIO(image_data)
 
-st.set_page_config(page_title = 'ABA Project Overview', page_icon = image_bytes, layout = "wide", initial_sidebar_state = "expanded", menu_items = {'Get help': 'mailto:ajinkya.kulkarni@mpinat.mpg.de', 'Report a bug': 'mailto:ajinkya.kulkarni@mpinat.mpg.de', 'About': 'This is a webpage for generating an overview of the metadata used in the ABA project at the MPI-NAT, Göttingen. Developed, tested and maintained by Ajinkya Kulkarni: https://github.com/ajinkya-kulkarni and reachable at mailto:ajinkya.kulkarni@mpinat.mpg.de'
+st.set_page_config(page_title = 'ABA Project Overview', page_icon = image_bytes, layout = "wide", initial_sidebar_state = "expanded", menu_items = {'Get help': 'mailto:ajinkya.kulkarni@mpinat.mpg.de', 'Report a bug': 'mailto:ajinkya.kulkarni@mpinat.mpg.de', 'About': 'This is a webpage for generating an overview of the metadata uploaded in the ABA project at the MPI-NAT, Göttingen. Developed, tested and maintained by Ajinkya Kulkarni: https://github.com/ajinkya-kulkarni and reachable at mailto:ajinkya.kulkarni@mpinat.mpg.de'
 })
 
 # Title of the web app
@@ -127,7 +126,7 @@ if generate_df:
 
 		#######################################################################
 
-		LSM_overview = make_json_file()
+		LSM_overview = make_LSM_overview_json_file()
 
 		TwoPhoton_overview = create_random_json()
 
@@ -176,7 +175,7 @@ if generate_df:
 		# Get the current UTC time
 		local_time = datetime.datetime.utcnow()
 		# Format the timestamp string
-		timestamp_str = local_time.strftime('%d %B %Y at %H:%M hrs UTC')
+		timestamp_str = local_time.strftime('%d %B %Y at %H:%M UTC')
 		# Create the report generated time string with the UTC timezone
 		created_on = f"Report generated on {timestamp_str}"
 		st.caption(created_on, unsafe_allow_html=False)
