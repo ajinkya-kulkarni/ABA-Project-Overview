@@ -74,22 +74,25 @@ def make_log_file():
 
 	##################
 
-	# # Loop over all objects in the bucket that contain the word 'TestSample_0' in their key name
+	# Loop over all objects in the bucket that contain the word 'TestSample_0' in their key name
 
-	# for i in range(total_files):
-	# 	obj = objects[i]
+	for i in range(total_files):
+		obj = objects[i]
 
-	# 	if ('TestSample_0' in obj.key):
-	# 		try:
-	# 			print(str(obj.key) + ' found')
-	# 			# Delete the object
-	# 			obj.delete()
-	# 			# Print message indicating that the object was deleted successfully
-	# 			print(str(obj.key) + ' deleted')
-	# 			print()
-	# 		except:
-	# 			# If an error occurs, raise an exception
-	# 			raise Exception('Something went wrong')
+		if ('TestSample_0' in obj.key):
+			try:
+				print(str(obj.key) + ' found')
+
+				## Delete the object
+				#obj.delete()
+
+				# # Print message indicating that the object was deleted successfully
+				# print(str(obj.key) + ' deleted')
+
+				print()
+			except:
+				# If an error occurs, raise an exception
+				raise Exception('Something went wrong')
 
 ############################################################################################################
 
