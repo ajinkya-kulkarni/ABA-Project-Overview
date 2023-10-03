@@ -1,4 +1,4 @@
-urllib3==1.26.12
+urllib3==1.26.17
 streamlit
 numpy
 boto3==1.26.50
