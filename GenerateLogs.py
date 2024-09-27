@@ -1,23 +1,20 @@
 import numpy as np
-
 import os
 import json
 import csv
-
 import boto3
-
 import sys
 # Don't generate the __pycache__ folder locally
 sys.dont_write_bytecode = True 
 # Print exception without the buit-in python warning
 sys.tracebacklimit = 0 
-
 import caosdb as db
 import urllib3
 #Disable the HTTPS warnings for CaosDB authentication
 urllib3.disable_warnings() 
-
 import datetime
+import random
+import string
 
 ############################################################################################################
 
@@ -272,18 +269,9 @@ def make_LSM_overview_json_file():
 
 		current_index = current_index + 1
 
-	##############################################
-
-	# # create the JSON file
-	# with open(json_file, 'w') as outfile:
-	# 	json.dump(global_entries, outfile)
-
 	return global_entries
 
 ############################################################################################################
-
-import random
-import string
 
 def create_random_json(num_rows = 50, num_cols = 30, string_length = 10):
 	column_names = ['column{}'.format(i) for i in range(1, num_cols + 1)]
