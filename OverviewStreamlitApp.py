@@ -175,10 +175,10 @@ if generate_df:
 
 		# Show timestamp of data creation in Berlin time
 
-	    berlin_time = datetime.now(ZoneInfo("Europe/Berlin"))
-	    timestamp_str = berlin_time.strftime('%d %B %Y at %H:%M %Z')
-	    created_on = f"Report generated on {timestamp_str} (Berlin time)"
-	    st.caption(created_on, unsafe_allow_html=False)
+	    # berlin_time = datetime.now(ZoneInfo("Europe/Berlin"))
+	    # timestamp_str = berlin_time.strftime('%d %B %Y at %H:%M %Z')
+	    # created_on = f"Report generated on {timestamp_str} (Berlin time)"
+	    # st.caption(created_on, unsafe_allow_html=False)
 
 else:
 
