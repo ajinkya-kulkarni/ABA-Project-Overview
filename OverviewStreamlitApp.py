@@ -173,13 +173,12 @@ if generate_df:
 
 		# Show timestamp of data creation
 
-		# Get the current UTC time
-		local_time = datetime.datetime.utcnow()
-		# Format the timestamp string
-		timestamp_str = local_time.strftime('%d %B %Y at %H:%M UTC')
-		# Create the report generated time string with the UTC timezone
-		created_on = f"Report generated on {timestamp_str}"
-		st.caption(created_on, unsafe_allow_html=False)
+		# Show timestamp of data creation in Berlin time
+
+	    berlin_time = datetime.now(ZoneInfo("Europe/Berlin"))
+	    timestamp_str = berlin_time.strftime('%d %B %Y at %H:%M %Z')
+	    created_on = f"Report generated on {timestamp_str} (Berlin time)"
+	    st.caption(created_on, unsafe_allow_html=False)
 
 else:
 
