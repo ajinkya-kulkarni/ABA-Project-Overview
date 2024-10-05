@@ -3,12 +3,9 @@ import pandas as pd
 import base64
 import json
 from io import BytesIO
-
 import sys
 sys.dont_write_bytecode = True # Don't generate the __pycache__ folder locally
 sys.tracebacklimit = 0 # Print exception without the buit-in python warning
-
-import datetime
 
 #######################################################################
 
@@ -73,10 +70,6 @@ st.markdown("")
 # # Create a button to generate the DataFrame
 
 generate_df = st.button("Click here to generate the latest reports")
-
-# with st.form(key = 'form1', clear_on_submit = True):
-
-# 	submitted = st.form_submit_button('Click here to generate the latest reports')
 
 #######################################################################
 
@@ -170,15 +163,6 @@ if generate_df:
 			st.markdown(download_excel(df, 'CT_overview'), unsafe_allow_html = True)
 	
 	#######################################################################
-
-		# Show timestamp of data creation
-
-		# Show timestamp of data creation in Berlin time
-
-	    # berlin_time = datetime.now(ZoneInfo("Europe/Berlin"))
-	    # timestamp_str = berlin_time.strftime('%d %B %Y at %H:%M %Z')
-	    # created_on = f"Report generated on {timestamp_str} (Berlin time)"
-	    # st.caption(created_on, unsafe_allow_html=False)
 
 else:
 
