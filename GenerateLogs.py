@@ -2,7 +2,6 @@ import numpy as np
 import os
 import json
 import csv
-import boto3
 import sys
 sys.dont_write_bytecode = True  # Don't generate the __pycache__ folder locally
 sys.tracebacklimit = 0  # Print exception without the built-in python warning
