@@ -7,11 +7,6 @@ import sys
 sys.dont_write_bytecode = True  # Don't generate the __pycache__ folder locally
 sys.tracebacklimit = 0  # Print exception without the built-in python warning
 
-"""
-This Streamlit app generates metadata reports for the ABA Project at MPI-NAT, Göttingen.
-It connects to a Linkahead database, retrieves data, and presents it in a user-friendly format.
-"""
-
 # Database credentials and proxy settings
 LINKAHEAD_URL = st.secrets.db_credentials.LINKAHEAD_URL
 LINKAHEAD_USERNAME = st.secrets.db_credentials.LINKAHEAD_USERNAME
@@ -19,22 +14,6 @@ LINKAHEAD_PASSWORD = st.secrets.db_credentials.LINKAHEAD_PASSWORD
 UMG_PROXY = st.secrets.db_credentials.UMG_PROXY
 
 from GenerateLogs import *
-
-def download_csv(df, filename):
-    """
-    Generate a download link for a DataFrame as a CSV file.
-    
-    Args:
-    df (pandas.DataFrame): The DataFrame to be downloaded
-    filename (str): The name of the file (without extension)
-    
-    Returns:
-    str: HTML string containing the download link
-    """
-    csv = df.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="{filename}.csv">Download report</a>'
-    return href
 
 def download_excel(df, filename):
     """
